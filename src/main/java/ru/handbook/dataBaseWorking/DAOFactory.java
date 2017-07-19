@@ -16,7 +16,7 @@ public abstract class DAOFactory {
 
         switch (whichFactory) {
             case SERIAL:
-                return new SerialDAOFactory();
+                //return new SerialDAOFactory();
             default:
                 return null;
         }
