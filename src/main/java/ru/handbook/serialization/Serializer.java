@@ -1,10 +1,11 @@
-package ru.handbook.dataBaseWorking.serialization;
+package ru.handbook.serialization;
+
+import ru.handbook.controller.HandbookDataStorage;
 
 import java.io.*;
 
 import static ru.handbook.core.Main.contacts;
 import static ru.handbook.core.Main.groups;
-import static ru.handbook.core.Main.serial;
 
 /**
  * Created by asus on 15.07.2017.
@@ -12,11 +13,10 @@ import static ru.handbook.core.Main.serial;
 public class Serializer {
     public static void serialize() {
         ObjectOutputStream objectOutputStream = createOOS();
-        serial = new Serial();
-        serial.setContacts(contacts);
-        serial.setGroups(groups);
+        HandbookDataStorage.getInstance().setContacts(contacts);
+        HandbookDataStorage.getInstance().setGroups(groups);
         try {
-            objectOutputStream.writeObject(serial);
+            objectOutputStream.writeObject(HandbookDataStorage.getInstance());
             System.out.println("Serializing is success");
         } catch (IOException e) {
             e.printStackTrace();
@@ -24,7 +24,7 @@ public class Serializer {
             try {
                 objectOutputStream.close();
             } catch (IOException e) {
-                System.out.println("OutputStream did not ctreate");
+                System.out.println("OutputStream was not created");
             }
         }
     }

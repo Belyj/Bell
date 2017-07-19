@@ -1,7 +1,7 @@
 package ru.handbook.core;
 
-import ru.handbook.handbookExceptions.*;
-import ru.handbook.dataBaseWorking.serialization.Serial;
+import ru.handbook.exceptions.*;
+import ru.handbook.controller.HandbookDataStorage;
 import ru.handbook.model.Contact;
 import ru.handbook.model.Group;
 
@@ -9,14 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static ru.handbook.dataBaseWorking.serialization.Deserializer.deSerialize;
-import static ru.handbook.dataBaseWorking.serialization.Serializer.*;
+import static ru.handbook.serialization.Deserializer.deSerialize;
+import static ru.handbook.serialization.Serializer.*;
 
 /**
  * Created by asus on 11.07.2017.
  */
 public class Main {
-    public  static Serial serial;
     static Menu menu = new Menu();
     public static boolean flag = true;
     public static List<Contact> contacts = new ArrayList();
@@ -43,11 +42,6 @@ public class Main {
             if (scanner.hasNextInt()) {
                 menu.command(Integer.parseInt(scanner.nextLine()));
             } else throw new NotCorrectCommandException("Command must be integer");
-//            try {
-//                menu.command(Integer.parseInt(scanner.nextLine()));
-//            } catch (NotCorrectCommandException e) {
-//                e.printStackTrace();
-//            }
         }
         serialize();
     }

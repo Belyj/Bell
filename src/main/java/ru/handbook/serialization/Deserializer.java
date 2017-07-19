@@ -1,4 +1,6 @@
-package ru.handbook.dataBaseWorking.serialization;
+package ru.handbook.serialization;
+
+import ru.handbook.controller.HandbookDataStorage;
 
 import java.io.*;
 
@@ -14,7 +16,7 @@ public class Deserializer {
         try {
             if (new File("temp.out").exists()) {
                 System.out.println("File founded");
-                Serial serial = (Serial) objectInputStream.readObject();
+                HandbookDataStorage serial = (HandbookDataStorage) objectInputStream.readObject();
                 contacts = serial.getContacts();
                 groups = serial.getGroups();
                 System.out.println("Read file success");
@@ -39,7 +41,6 @@ public class Deserializer {
 
     public static ObjectInputStream createOIS() {
         try {
-            //String path = new File("").getAbsolutePath();
             if (new File("temp.out").exists()) {
                 System.out.println("Creating ObjectInputStream...");
                 return new ObjectInputStream(createFIS());

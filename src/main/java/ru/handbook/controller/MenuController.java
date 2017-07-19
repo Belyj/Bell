@@ -9,59 +9,50 @@ public class MenuController {
     SystemMessages messenger = new SystemMessages();
 
     public void searchContact() {
-//        if (contactActions.search() != null) {
-            new ContactActions().search().getContactInfo();
-//        } else {
-//            messenger.emptyList("Contact");
-//        }
+            new ContactRealization().search().getContactInfo();
     }
 
     public void createContact() {
-        new ContactActions().create();
+        new ContactRealization().create();
     }
 
     public void updateContact() {
-        new ContactActions().update();
+        new ContactRealization().update();
     }
 
     public void deleteContact() {
-        new ContactActions().delete();
+        new ContactRealization().delete();
     }
 
     public void addInGroup() {
-        new ContactActions().addInGroup();
+        new ContactRealization().addInGroup();
     }
 
     public void deleteFromGroup() {
-        new ContactActions().deleteFromGroup();
+        new ContactRealization().removeFromGroup();
     }
 
     public void checkContacts() {
-            new ContactActions().check();
+            new ContactRealization().check();
     }
 
     public void searchGroup() {
-
-//        if (new GroupActions().search() != null) {
-            new GroupActions().search().getGroupInfo();
-//        } else {
-//            messenger.emptyList("Group");
-//        }
+            new GroupRealization().search().getGroupInfo();
     }
 
     public void createGroup() {
-        new GroupActions().create();
+        new GroupRealization().create();
     }
 
     public void checkGroups() {
-        new GroupActions().check();
+        new GroupRealization().check();
     }
 
     public void deleteGroup() {
-        new GroupActions().delete();
+        new GroupRealization().delete();
     }
 
     public void updateGroup() {
-        new GroupActions().update();
+        new GroupRealization().update();
     }
 }

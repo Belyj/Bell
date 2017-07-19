@@ -7,11 +7,10 @@ import static ru.handbook.core.Main.groups;
 import static ru.handbook.core.Main.scanner;
 
 /**
- * Created by asus on 16.07.2017.
+ * Created by operator1 on 19.07.2017.
  */
-public class GroupActions implements HandbookActions {
+public class GroupDAO implements ObjectDAO {
     public void create() {
-        messenger.nameRequest("group");
         String groupName = scanner.nextLine();
         if (!groupName.equals("")) {
             int groupsLength = groups.size();
@@ -29,7 +28,6 @@ public class GroupActions implements HandbookActions {
     }
 
     public Group search() {
-        messenger.nameRequest("group");
         String groupName = scanner.nextLine();
         System.out.println(groupName + ":\n");
         int length = groups.size();
@@ -43,7 +41,6 @@ public class GroupActions implements HandbookActions {
     }
 
     public void update() {
-        messenger.nameRequest("group");
         String groupName = scanner.nextLine();
         int groupLength = groups.size();
         for (int i = 0; i < groupLength; i++) {
@@ -70,7 +67,6 @@ public class GroupActions implements HandbookActions {
     }
 
     public void delete() {
-        messenger.nameRequest("group");
         String groupName = scanner.nextLine();
         int groupLength = groups.size();
         for (int i = 0; i < groupLength; i++) {

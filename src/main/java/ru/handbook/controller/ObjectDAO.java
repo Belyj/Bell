@@ -3,28 +3,28 @@ import ru.handbook.core.SystemMessages;
 /**
  * Created by asus on 16.07.2017.
  */
-public interface HandbookActions<T> {
+public interface ObjectDAO<T> {
     SystemMessages messenger = new SystemMessages();
 
     /**
      * <p>Creating object</p>
      */
-    public void create();
+    void create();
     /**
      * <p>Searching object</p>
      * @return T
      */
-    public T search();
+    T search();
     /**
      * <p>Updating fields of object</p>
      */
-    public void update();
+    void update();
     /**
      * <p>Deleting object</p>
      */
-    public void delete();
+    void delete();
     /**
      * <p>Looking for objects same category</p>
      */
-    public void check();
+    void check();
 }

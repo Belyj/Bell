@@ -7,11 +7,10 @@ import static ru.handbook.core.Main.groups;
 import static ru.handbook.core.Main.scanner;
 
 /**
- * Created by asus on 16.07.2017.
+ * Created by operator1 on 19.07.2017.
  */
-public class ContactActions implements HandbookActions {
+public class ContactDAO implements ObjectDAO {
     public void create() {
-        messenger.nameRequest("contact");
         String name = scanner.nextLine();
         if (!name.equals("")) {
             int contactsLength = contacts.size();
@@ -27,7 +26,6 @@ public class ContactActions implements HandbookActions {
     }
 
     public Contact search() {
-        messenger.nameRequest("contact");
         String name = scanner.nextLine();
         int length = contacts.size();
         for (int i = 0; i < length; i++) {
@@ -40,7 +38,6 @@ public class ContactActions implements HandbookActions {
     }
 
     public void update() {
-        messenger.nameRequest("contact");
         String name = scanner.nextLine();
         int length = contacts.size();
         for (int i = 0; i < length; i++) {
@@ -86,7 +83,6 @@ public class ContactActions implements HandbookActions {
     }
 
     public void delete() {
-        messenger.nameRequest("contact");
         String contactName = scanner.nextLine();
         int lengthContacts = contacts.size();
         for (int i = 0; i < lengthContacts; i++) {
@@ -109,7 +105,6 @@ public class ContactActions implements HandbookActions {
     }
 
     public void addInGroup() {
-        messenger.nameRequest("contact");
         String contactName = scanner.nextLine();
         int contactsLength = contacts.size();
         for (int i = 0; i < contactsLength; i++) {
@@ -133,8 +128,7 @@ public class ContactActions implements HandbookActions {
         return;
     }
 
-    public void deleteFromGroup() {
-        messenger.nameRequest("contact");
+    public void removeFromGroup() {
         String contactName = scanner.nextLine();
         int contactsLength = contacts.size();
         for (int i = 0; i < contactsLength; i++) {

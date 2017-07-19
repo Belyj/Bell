@@ -1,4 +1,4 @@
-package ru.handbook.dataBaseWorking.serialization;
+package ru.handbook.controller;
 
 import ru.handbook.model.Contact;
 import ru.handbook.model.Group;
@@ -9,8 +9,27 @@ import java.util.List;
 /**
  * Created by operator1 on 14.07.2017.
  */
-public class Serial implements Serializable {
+public class HandbookDataStorage implements Serializable {
+    private static volatile HandbookDataStorage instance;
+
+    private HandbookDataStorage() {
+
+    }
+
+    public static HandbookDataStorage getInstance() {
+        if (instance == null) {
+            synchronized (HandbookDataStorage.class) {
+                if (instance == null) {
+                    instance = new HandbookDataStorage();
+                }
+            }
+        }
+        return instance;
+    }
+
+
     private List<Contact> contacts;
+
     private List<Group> groups;
 
     public List<Contact> getContacts() {
