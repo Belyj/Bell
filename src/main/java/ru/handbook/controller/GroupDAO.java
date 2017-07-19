@@ -9,91 +9,19 @@ import static ru.handbook.core.Main.scanner;
 /**
  * Created by operator1 on 19.07.2017.
  */
-public class GroupDAO implements ObjectDAO {
-    public void create() {
-        String groupName = scanner.nextLine();
-        if (!groupName.equals("")) {
-            int groupsLength = groups.size();
-            for (int i = 0; i < groupsLength; i++) {
-                if (groups.get(i).getGroupName().equals(groupName)) {
-                    messenger.nameIsBusy(groupName);
-                    return;
-                }
-            }
-            groups.add(new Group(groupName));
-            messenger.createSuccess(groupName);
-        } else {
-            messenger.emptyName(groupName);
-        }
-    }
+public interface GroupDAO extends ObjectDAO {
+    @Override
+    void create();
 
-    public Group search() {
-        String groupName = scanner.nextLine();
-        System.out.println(groupName + ":\n");
-        int length = groups.size();
-        for (int i = 0; i < length; i++) {
-            if (groups.get(i).getGroupName().equals(groupName)) {
-                return groups.get(i);
-            }
-        }
-        messenger.nameNonexistent(groupName);
-        return new Group("");
-    }
+    @Override
+    Object search();
 
-    public void update() {
-        String groupName = scanner.nextLine();
-        int groupLength = groups.size();
-        for (int i = 0; i < groupLength; i++) {
-            if (groups.get(i).getGroupName().equals(groupName)) {
-                messenger.newNameRequest("contact");
-                String newGroupName = scanner.nextLine();
-                groups.get(i).setName(newGroupName);
-                int contactsLength = contacts.size();
-                for (int j = 0; j < contactsLength; j++) {
-                    if (contacts.get(j).getContactGroups() != null) {
-                        int contactGroupsLength = contacts.get(j).getContactGroups().size();
-                        for (int k = 0; k < contactGroupsLength; k++) {
-                            if (contacts.get(j).getContactGroups().get(k).equals(groupName)) {
-                                contacts.get(j).getContactGroups().remove(k);
-                                contacts.get(j).getContactGroups().add(newGroupName);
-                                return;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        messenger.nameNonexistent(groupName);
-    }
+    @Override
+    void update();
 
-    public void delete() {
-        String groupName = scanner.nextLine();
-        int groupLength = groups.size();
-        for (int i = 0; i < groupLength; i++) {
-            if (groups.get(i).getGroupName().equals(groupName)) {
-                int groupContactsLength = groups.get(i).getGroupContacts().size();
-                for (int j = 0; j < groupContactsLength; j++) {
-                    int contactGroupsLength = groups.get(i).getGroupContacts().get(j).getContactGroups().size();
-                    for (int k = 0; k < contactGroupsLength; k++) {
-                        if (groups.get(i).getGroupContacts().get(j).getContactGroups().get(k).equals(groupName)) {
-                            groups.get(i).getGroupContacts().get(j).getContactGroups().remove(k);
-                            groups.remove(i);
-                            messenger.removeSuccess(groupName);
-                            return;
-                        }
-                    }
-                }
-            }
-        }
-        messenger.nameNonexistent(groupName);
-    }
+    @Override
+    void delete();
 
-    public void check() {
-        int groupsLength = groups.size();
-        if (!groups.isEmpty()) {
-            for (int i = 0; i < groupsLength; i++) {
-                System.out.println(groups.get(i).getGroupName());
-            }
-        } else messenger.emptyList("Group list");
-    }
+    @Override
+    void check();
 }
