@@ -10,7 +10,6 @@ import static ru.handbook.core.Main.scanner;
  * Created by asus on 16.07.2017.
  */
 public class ContactRealization implements ContactDAO {
-    @Override
     public void create() {
         messenger.nameRequest("contact");
         String name = scanner.nextLine();
@@ -27,7 +26,6 @@ public class ContactRealization implements ContactDAO {
         } else messenger.emptyName(name);
     }
 
-    @Override
     public Contact search() {
         messenger.nameRequest("contact");
         String name = scanner.nextLine();
@@ -41,7 +39,6 @@ public class ContactRealization implements ContactDAO {
         return new Contact("");
     }
 
-    @Override
     public void update() {
         messenger.nameRequest("contact");
         String name = scanner.nextLine();
@@ -88,7 +85,6 @@ public class ContactRealization implements ContactDAO {
         messenger.nameNonexistent(name);
     }
 
-    @Override
     public void delete() {
         messenger.nameRequest("contact");
         String contactName = scanner.nextLine();
@@ -165,8 +161,7 @@ public class ContactRealization implements ContactDAO {
         }
         messenger.nameNonexistent(contactName);
     }
-
-    @Override
+    
     public void check() {
         if (!contacts.isEmpty()) {
             int contactsLength = contacts.size();
