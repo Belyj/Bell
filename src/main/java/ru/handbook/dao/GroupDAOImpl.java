@@ -9,8 +9,7 @@ import static ru.handbook.core.Main.scanner;
 /**
  * Created by asus on 16.07.2017.
  */
-public class GroupRealization implements GroupDAO {
-    @Override
+public class GroupDAOimpl implements ObjectDAO<Group> {
     public void create() {
         messenger.nameRequest("group");
         String groupName = scanner.nextLine();
@@ -29,7 +28,6 @@ public class GroupRealization implements GroupDAO {
         }
     }
 
-    @Override
     public Group search() {
         messenger.nameRequest("group");
         String groupName = scanner.nextLine();
@@ -44,7 +42,6 @@ public class GroupRealization implements GroupDAO {
         return new Group("");
     }
 
-    @Override
     public void update() {
         messenger.nameRequest("group");
         String groupName = scanner.nextLine();
@@ -72,7 +69,6 @@ public class GroupRealization implements GroupDAO {
         messenger.nameNonexistent(groupName);
     }
 
-    @Override
     public void delete() {
         messenger.nameRequest("group");
         String groupName = scanner.nextLine();
@@ -96,7 +92,6 @@ public class GroupRealization implements GroupDAO {
         messenger.nameNonexistent(groupName);
     }
 
-    @Override
     public void check() {
         int groupsLength = groups.size();
         if (!groups.isEmpty()) {

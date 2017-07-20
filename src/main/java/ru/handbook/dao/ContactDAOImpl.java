@@ -9,7 +9,7 @@ import static ru.handbook.core.Main.scanner;
 /**
  * Created by asus on 16.07.2017.
  */
-public class ContactRealization implements ContactDAO {
+public class ContactDAOimpl implements ObjectDAO<Contact> {
     public void create() {
         messenger.nameRequest("contact");
         String name = scanner.nextLine();
