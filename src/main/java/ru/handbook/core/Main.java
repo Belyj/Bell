@@ -1,7 +1,6 @@
 package ru.handbook.core;
 
 import ru.handbook.exceptions.*;
-import ru.handbook.controller.HandbookDataStorage;
 import ru.handbook.model.Contact;
 import ru.handbook.model.Group;
 
@@ -18,8 +17,6 @@ import static ru.handbook.serialization.Serializer.*;
 public class Main {
     static Menu menu = new Menu();
     public static boolean flag = true;
-    public static List<Contact> contacts = new ArrayList();
-    public static List<Group> groups = new ArrayList();
     public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {

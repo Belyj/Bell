@@ -1,27 +1,27 @@
-package ru.handbook.controller;
+package ru.handbook.dao;
 
 import ru.handbook.model.Group;
+import ru.handbook.model.HandbookDataStorage;
 
-import static ru.handbook.core.Main.contacts;
-import static ru.handbook.core.Main.groups;
 import static ru.handbook.core.Main.scanner;
 
 /**
  * Created by asus on 16.07.2017.
  */
-public class GroupDAOimpl implements ObjectDAO<Group> {
+public class GroupDAOImpl implements ObjectDAO<Group> {
+    HandbookDataStorage dataSource = HandbookDataStorage.getInstance();
     public void create() {
         messenger.nameRequest("group");
         String groupName = scanner.nextLine();
         if (!groupName.equals("")) {
-            int groupsLength = groups.size();
+            int groupsLength = dataSource.getGroups().size();
             for (int i = 0; i < groupsLength; i++) {
-                if (groups.get(i).getGroupName().equals(groupName)) {
+                if (dataSource.getGroups().get(i).getGroupName().equals(groupName)) {
                     messenger.nameIsBusy(groupName);
                     return;
                 }
             }
-            groups.add(new Group(groupName));
+            dataSource.getGroups().add(new Group(groupName));
             messenger.createSuccess(groupName);
         } else {
             messenger.emptyName(groupName);
@@ -32,10 +32,10 @@ public class GroupDAOimpl implements ObjectDAO<Group> {
         messenger.nameRequest("group");
         String groupName = scanner.nextLine();
         System.out.println(groupName + ":\n");
-        int length = groups.size();
+        int length = dataSource.getGroups().size();
         for (int i = 0; i < length; i++) {
-            if (groups.get(i).getGroupName().equals(groupName)) {
-                return groups.get(i);
+            if (dataSource.getGroups().get(i).getGroupName().equals(groupName)) {
+                return dataSource.getGroups().get(i);
             }
         }
         messenger.nameNonexistent(groupName);
@@ -45,20 +45,20 @@ public class GroupDAOimpl implements ObjectDAO<Group> {
     public void update() {
         messenger.nameRequest("group");
         String groupName = scanner.nextLine();
-        int groupLength = groups.size();
+        int groupLength = dataSource.getGroups().size();
         for (int i = 0; i < groupLength; i++) {
-            if (groups.get(i).getGroupName().equals(groupName)) {
+            if (dataSource.getGroups().get(i).getGroupName().equals(groupName)) {
                 messenger.newNameRequest("contact");
                 String newGroupName = scanner.nextLine();
-                groups.get(i).setName(newGroupName);
-                int contactsLength = contacts.size();
+                dataSource.getGroups().get(i).setName(newGroupName);
+                int contactsLength = dataSource.getContacts().size();
                 for (int j = 0; j < contactsLength; j++) {
-                    if (contacts.get(j).getContactGroups() != null) {
-                        int contactGroupsLength = contacts.get(j).getContactGroups().size();
+                    if (dataSource.getContacts().get(j).getContactGroups() != null) {
+                        int contactGroupsLength = dataSource.getContacts().get(j).getContactGroups().size();
                         for (int k = 0; k < contactGroupsLength; k++) {
-                            if (contacts.get(j).getContactGroups().get(k).equals(groupName)) {
-                                contacts.get(j).getContactGroups().remove(k);
-                                contacts.get(j).getContactGroups().add(newGroupName);
+                            if (dataSource.getContacts().get(j).getContactGroups().get(k).equals(groupName)) {
+                                dataSource.getContacts().get(j).getContactGroups().remove(k);
+                                dataSource.getContacts().get(j).getContactGroups().add(newGroupName);
                                 return;
                             }
                         }
@@ -72,16 +72,16 @@ public class GroupDAOimpl implements ObjectDAO<Group> {
     public void delete() {
         messenger.nameRequest("group");
         String groupName = scanner.nextLine();
-        int groupLength = groups.size();
+        int groupLength = dataSource.getGroups().size();
         for (int i = 0; i < groupLength; i++) {
-            if (groups.get(i).getGroupName().equals(groupName)) {
-                int groupContactsLength = groups.get(i).getGroupContacts().size();
+            if (dataSource.getGroups().get(i).getGroupName().equals(groupName)) {
+                int groupContactsLength = dataSource.getGroups().get(i).getGroupContacts().size();
                 for (int j = 0; j < groupContactsLength; j++) {
-                    int contactGroupsLength = groups.get(i).getGroupContacts().get(j).getContactGroups().size();
+                    int contactGroupsLength = dataSource.getGroups().get(i).getGroupContacts().get(j).getContactGroups().size();
                     for (int k = 0; k < contactGroupsLength; k++) {
-                        if (groups.get(i).getGroupContacts().get(j).getContactGroups().get(k).equals(groupName)) {
-                            groups.get(i).getGroupContacts().get(j).getContactGroups().remove(k);
-                            groups.remove(i);
+                        if (dataSource.getGroups().get(i).getGroupContacts().get(j).getContactGroups().get(k).equals(groupName)) {
+                            dataSource.getGroups().get(i).getGroupContacts().get(j).getContactGroups().remove(k);
+                            dataSource.getGroups().remove(i);
                             messenger.removeSuccess(groupName);
                             return;
                         }
@@ -93,10 +93,10 @@ public class GroupDAOimpl implements ObjectDAO<Group> {
     }
 
     public void check() {
-        int groupsLength = groups.size();
-        if (!groups.isEmpty()) {
+        int groupsLength = dataSource.getGroups().size();
+        if (!dataSource.getGroups().isEmpty()) {
             for (int i = 0; i < groupsLength; i++) {
-                System.out.println(groups.get(i).getGroupName());
+                System.out.println(dataSource.getGroups().get(i).getGroupName());
             }
         } else messenger.emptyList("Group list");
     }

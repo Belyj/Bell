@@ -1,11 +1,6 @@
 package ru.handbook.serialization;
-
-import ru.handbook.controller.HandbookDataStorage;
-
+import ru.handbook.model.HandbookDataStorage;
 import java.io.*;
-
-import static ru.handbook.core.Main.contacts;
-import static ru.handbook.core.Main.groups;
 
 /**
  * Created by asus on 15.07.2017.
@@ -13,19 +8,17 @@ import static ru.handbook.core.Main.groups;
 public class Serializer {
     public static void serialize() {
         ObjectOutputStream objectOutputStream = createOOS();
-        HandbookDataStorage.getInstance().setContacts(contacts);
-        HandbookDataStorage.getInstance().setGroups(groups);
         try {
             objectOutputStream.writeObject(HandbookDataStorage.getInstance());
             System.out.println("Serializing is success");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            try {
-                objectOutputStream.close();
-            } catch (IOException e) {
-                System.out.println("OutputStream was not created");
-            }
+//            try {
+//                objectOutputStream.close();
+//            } catch (IOException e) {
+//                System.out.println("OutputStream was not created");
+//            }
         }
     }
 
@@ -43,7 +36,7 @@ public class Serializer {
                 return new ObjectOutputStream(createFOS());
             }  else System.out.println("File does not exist");
         } catch (IOException e) {
-            System.out.println("File for serializing not found");
+            //createFile();
         }
         return null;
     }

@@ -1,4 +1,4 @@
-package ru.handbook.controller;
+package ru.handbook.dao;
 import ru.handbook.core.SystemMessages;
 /**
  * Created by asus on 16.07.2017.

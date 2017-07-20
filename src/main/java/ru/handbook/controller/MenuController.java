@@ -1,6 +1,8 @@
 package ru.handbook.controller;
 
 import ru.handbook.core.SystemMessages;
+import ru.handbook.dao.ContactDAOImpl;
+import ru.handbook.dao.GroupDAOImpl;
 
 /**
  * Created by operator1 on 14.07.2017.
@@ -9,50 +11,50 @@ public class MenuController {
     SystemMessages messenger = new SystemMessages();
 
     public void searchContact() {
-            new ContactRealization().search().getContactInfo();
+            new ContactDAOImpl().search().getContactInfo();
     }
 
     public void createContact() {
-        new ContactRealization().create();
+        new ContactDAOImpl().create();
     }
 
     public void updateContact() {
-        new ContactRealization().update();
+        new ContactDAOImpl().update();
     }
 
     public void deleteContact() {
-        new ContactRealization().delete();
+        new ContactDAOImpl().delete();
     }
 
     public void addInGroup() {
-        new ContactRealization().addInGroup();
+        new ContactDAOImpl().addInGroup();
     }
 
     public void deleteFromGroup() {
-        new ContactRealization().removeFromGroup();
+        new ContactDAOImpl().removeFromGroup();
     }
 
     public void checkContacts() {
-            new ContactRealization().check();
+            new ContactDAOImpl().check();
     }
 
     public void searchGroup() {
-            new GroupRealization().search().getGroupInfo();
+            new GroupDAOImpl().search().getGroupInfo();
     }
 
     public void createGroup() {
-        new GroupRealization().create();
+        new GroupDAOImpl().create();
     }
 
     public void checkGroups() {
-        new GroupRealization().check();
+        new GroupDAOImpl().check();
     }
 
     public void deleteGroup() {
-        new GroupRealization().delete();
+        new GroupDAOImpl().delete();
     }
 
     public void updateGroup() {
-        new GroupRealization().update();
+        new GroupDAOImpl().update();
     }
 }

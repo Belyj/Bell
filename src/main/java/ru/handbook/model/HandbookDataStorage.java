@@ -1,9 +1,7 @@
-package ru.handbook.controller;
-
-import ru.handbook.model.Contact;
-import ru.handbook.model.Group;
+package ru.handbook.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,9 +9,10 @@ import java.util.List;
  */
 public class HandbookDataStorage implements Serializable {
     private static volatile HandbookDataStorage instance;
+    private List<Contact> contacts = new ArrayList();
+    private List<Group> groups = new ArrayList();
 
     private HandbookDataStorage() {
-
     }
 
     public static HandbookDataStorage getInstance() {
@@ -27,26 +26,11 @@ public class HandbookDataStorage implements Serializable {
         return instance;
     }
 
-
-    private List<Contact> contacts;
-
-    private List<Group> groups;
-
     public List<Contact> getContacts() {
         return contacts;
     }
 
     public List<Group> getGroups() {
         return groups;
-    }
-
-    public void setContacts(List<Contact> incomingContacts) {
-        contacts = incomingContacts;
-        System.out.println("Contacts: was serialized");
-    }
-
-    public void setGroups(List<Group> incomingGroups) {
-        groups = incomingGroups;
-        System.out.println("Groups: was serialized");
     }
 }

@@ -1,27 +1,26 @@
-package ru.handbook.controller;
+package ru.handbook.dao;
 
 import ru.handbook.model.Contact;
-
-import static ru.handbook.core.Main.contacts;
-import static ru.handbook.core.Main.groups;
+import ru.handbook.model.HandbookDataStorage;
 import static ru.handbook.core.Main.scanner;
 
 /**
  * Created by asus on 16.07.2017.
  */
-public class ContactDAOimpl implements ObjectDAO<Contact> {
+public class ContactDAOImpl implements ObjectDAO<Contact> {
+    HandbookDataStorage dataSource = HandbookDataStorage.getInstance();
     public void create() {
         messenger.nameRequest("contact");
         String name = scanner.nextLine();
         if (!name.equals("")) {
-            int contactsLength = contacts.size();
+            int contactsLength = dataSource.getContacts().size();
             for (int i = 0; i < contactsLength; i++) {
-                if (contacts.get(i).getContactName().equals(name)) {
+                if (dataSource.getContacts().get(i).getContactName().equals(name)) {
                     messenger.nameIsBusy(name);
                     return;
                 }
             }
-            contacts.add(new Contact(name));
+            dataSource.getContacts().add(new Contact(name));
             messenger.createSuccess(name);
         } else messenger.emptyName(name);
     }
@@ -29,10 +28,10 @@ public class ContactDAOimpl implements ObjectDAO<Contact> {
     public Contact search() {
         messenger.nameRequest("contact");
         String name = scanner.nextLine();
-        int length = contacts.size();
+        int length = dataSource.getContacts().size();
         for (int i = 0; i < length; i++) {
-            if (contacts.get(i).getContactName().equals(name)) {
-                return contacts.get(i);
+            if (dataSource.getContacts().get(i).getContactName().equals(name)) {
+                return dataSource.getInstance().getContacts().get(i);
             }
         }
         messenger.nameNonexistent(name);
@@ -42,9 +41,9 @@ public class ContactDAOimpl implements ObjectDAO<Contact> {
     public void update() {
         messenger.nameRequest("contact");
         String name = scanner.nextLine();
-        int length = contacts.size();
+        int length = dataSource.getContacts().size();
         for (int i = 0; i < length; i++) {
-            if (contacts.get(i).getContactName().equals(name)) {
+            if (dataSource.getContacts().get(i).getContactName().equals(name)) {
                 System.out.println("Would you update name? y/n");
                 String yn = scanner.nextLine();
                 String newName = "";
@@ -53,8 +52,8 @@ public class ContactDAOimpl implements ObjectDAO<Contact> {
                     newName = scanner.nextLine();
                     if (!newName.equals("")) {
                         for (int j = 0; j < length; j++) {
-                            if (!contacts.get(j).getContactName().equals(newName)) {
-                                contacts.get(j).setContactName(newName);
+                            if (!dataSource.getContacts().get(j).getContactName().equals(newName)) {
+                                dataSource.getContacts().get(j).setContactName(newName);
                             } else {
                                 messenger.nameIsBusy(newName);
                                 return;
@@ -67,16 +66,16 @@ public class ContactDAOimpl implements ObjectDAO<Contact> {
                 }
                 messenger.newDataRequest("telephone");
                 String quest = scanner.nextLine();
-                contacts.get(i).setTelephone(quest);
+                dataSource.getContacts().get(i).setTelephone(quest);
                 messenger.newDataRequest("skype");
                 quest = scanner.nextLine();
-                contacts.get(i).setSkype(quest);
+                dataSource.getContacts().get(i).setSkype(quest);
                 messenger.newDataRequest("mail");
                 quest = scanner.nextLine();
-                contacts.get(i).setMail(quest);
+                dataSource.getContacts().get(i).setMail(quest);
                 for (int j = 0; j < length; j++) {
-                    if (contacts.get(j).getContactName().equals(newName)) {
-                        contacts.get(j).getContactInfo();
+                    if (dataSource.getContacts().get(j).getContactName().equals(newName)) {
+                        dataSource.getContacts().get(j).getContactInfo();
                         return;
                     }
                 }
@@ -88,16 +87,16 @@ public class ContactDAOimpl implements ObjectDAO<Contact> {
     public void delete() {
         messenger.nameRequest("contact");
         String contactName = scanner.nextLine();
-        int lengthContacts = contacts.size();
+        int lengthContacts = dataSource.getContacts().size();
         for (int i = 0; i < lengthContacts; i++) {
-            if (contacts.get(i).getContactName().equals(contactName)) {
-                int groupsLength = groups.size();
+            if (dataSource.getContacts().get(i).getContactName().equals(contactName)) {
+                int groupsLength = dataSource.getGroups().size();
                 for (int j = 0; j < groupsLength; j++) {
-                    int groupContactsLength = groups.get(j).getGroupContacts().size();
+                    int groupContactsLength = dataSource.getGroups().get(j).getGroupContacts().size();
                     for (int k = 0; k < groupContactsLength; k++) {
-                        if (groups.get(j).getGroupContacts().get(k).getContactName().equals(contactName)) {
-                            groups.get(j).getGroupContacts().remove(k);
-                            contacts.remove(i);
+                        if (dataSource.getGroups().get(j).getGroupContacts().get(k).getContactName().equals(contactName)) {
+                            dataSource.getGroups().get(j).getGroupContacts().remove(k);
+                            dataSource.getContacts().remove(i);
                             messenger.removeSuccess(contactName);
                             return;
                         }
@@ -111,16 +110,16 @@ public class ContactDAOimpl implements ObjectDAO<Contact> {
     public void addInGroup() {
         messenger.nameRequest("contact");
         String contactName = scanner.nextLine();
-        int contactsLength = contacts.size();
+        int contactsLength = dataSource.getContacts().size();
         for (int i = 0; i < contactsLength; i++) {
-            if (contacts.get(i).getContactName().equals(contactName)) {
+            if (dataSource.getContacts().get(i).getContactName().equals(contactName)) {
                 messenger.nameRequest("group");
                 String groupName = scanner.nextLine();
-                int groupsLenght = groups.size();
+                int groupsLenght = dataSource.getGroups().size();
                 for (int j = 0; j < groupsLenght; j++) {
-                    if (groups.get(j).getGroupName().equals(groupName)) {
-                        groups.get(j).setGroupContact(contacts.get(i));
-                        contacts.get(i).setContactGroups(groupName);
+                    if (dataSource.getGroups().get(j).getGroupName().equals(groupName)) {
+                        dataSource.getGroups().get(j).setGroupContact(dataSource.getContacts().get(i));
+                        dataSource.getContacts().get(i).setContactGroups(groupName);
                         messenger.addGroupSuccess(contactName, groupName);
                         return;
                     }
@@ -136,19 +135,19 @@ public class ContactDAOimpl implements ObjectDAO<Contact> {
     public void removeFromGroup() {
         messenger.nameRequest("contact");
         String contactName = scanner.nextLine();
-        int contactsLength = contacts.size();
+        int contactsLength = dataSource.getContacts().size();
         for (int i = 0; i < contactsLength; i++) {
-            if (contacts.get(i).getContactName().equals(contactName)) {
+            if (dataSource.getContacts().get(i).getContactName().equals(contactName)) {
                 messenger.nameRequest("group");
                 String groupName = scanner.nextLine();
-                int groupsLength = groups.size();
+                int groupsLength = dataSource.getGroups().size();
                 for (int j = 0; j < groupsLength; j++) {
-                    if (groups.get(j).getGroupName().equals(groupName)) {
-                        int contactGroupsLength = contacts.get(i).getContactGroups().size();
+                    if (dataSource.getGroups().get(j).getGroupName().equals(groupName)) {
+                        int contactGroupsLength = dataSource.getContacts().get(i).getContactGroups().size();
                         for (int k = 0; k < contactGroupsLength; k++) {
-                            if (contacts.get(i).getContactGroups().get(k).equals(groupName)) {
-                                contacts.get(i).getContactGroups().remove(k);
-                                groups.get(j).removeContact(contactName);
+                            if (dataSource.getContacts().get(i).getContactGroups().get(k).equals(groupName)) {
+                                dataSource.getContacts().get(i).getContactGroups().remove(k);
+                                dataSource.getGroups().get(j).removeContact(contactName);
                                 messenger.removeGroupSuccess(contactName, groupName);
                                 return;
                             }
@@ -163,10 +162,10 @@ public class ContactDAOimpl implements ObjectDAO<Contact> {
     }
     
     public void check() {
-        if (!contacts.isEmpty()) {
-            int contactsLength = contacts.size();
+        if (!dataSource.getContacts().isEmpty()) {
+            int contactsLength = dataSource.getContacts().size();
             for (int i = 0; i < contactsLength; i++) {
-                System.out.println(contacts.get(i).getContactName());
+                System.out.println(dataSource.getContacts().get(i).getContactName());
             }
         } else messenger.emptyList("Contact list");
     }
