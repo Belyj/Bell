@@ -23,15 +23,15 @@ public class Deserializer {
         } catch (ClassNotFoundException e) {
             System.out.println("Handbook have not component for reading file");
         } finally {
-//            if (new File("temp.out").exists()) {
-//                try {
-//                    objectInputStream.close();
-//                    return;
-//                } catch (IOException e) {
-//                    System.out.println("Inputstream didnot created");
-//                    return;
-//                }
-//            } else System.out.println("Inputstream didnot created");
+            if (new File("temp.out").exists()) {
+                try {
+                    objectInputStream.close();
+                    return;
+                } catch (IOException e) {
+                    System.out.println("Inputstream didnot created");
+                    return;
+                }
+            } else System.out.println("Inputstream didnot created");
         }
     }
 
