@@ -7,36 +7,29 @@ import java.io.*;
  */
 public class Serializer {
     public static void serialize() {
-        ObjectOutputStream objectOutputStream = createOOS();
+        ObjectOutputStream objectOutputStream  = createOOS();
         try {
             objectOutputStream.writeObject(HandbookDataStorage.getInstance());
             System.out.println("Serializing is success");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-//            try {
-//                objectOutputStream.close();
-//            } catch (IOException e) {
-//                System.out.println("OutputStream was not created");
-//            }
+            try {
+                objectOutputStream.close();
+            } catch (IOException e) {
+                System.out.println("OutputStream was not created");
+            }
         }
-    }
-
-    private static File createFile() {
-        String path = new File("").getAbsolutePath();
-        System.out.println("Creating file for serialization...");
-        File file = new File(path + "temp.out");
-        return file;
     }
 
     private static ObjectOutputStream createOOS() {
         try {
-            if (new File("temp.out").exists()) {
+//             if (new File("temp.out").exists()) {
                 System.out.println("Creating ObjectOutputStream...");
                 return new ObjectOutputStream(createFOS());
-            }  else System.out.println("File does not exist");
+//            }  else System.out.println("File does not exist");
         } catch (IOException e) {
-            //createFile();
+            createFile();
         }
         return null;
     }
@@ -50,5 +43,13 @@ public class Serializer {
         }
         System.out.println("File not found");
         return null;
+    }
+
+
+    private static File createFile() {
+        String path = new File("").getAbsolutePath();
+        System.out.println("Creating file for serialization...");
+        File file = new File(path + "temp.out");
+        return file;
     }
 }

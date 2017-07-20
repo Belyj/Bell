@@ -13,7 +13,8 @@ public class Deserializer {
         try {
             if (new File("temp.out").exists()) {
                 System.out.println("File founded");
-                HandbookDataStorage serial = (HandbookDataStorage) objectInputStream.readObject();
+                HandbookDataStorage serial = HandbookDataStorage.getInstance();
+                serial = (HandbookDataStorage) objectInputStream.readObject();
                 System.out.println("Read file success");
                 return;
             }

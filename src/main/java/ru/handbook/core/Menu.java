@@ -33,7 +33,7 @@ public class Menu implements Serializable {
                 menuController.addInGroup();
                 break;
             case (7):
-                menuController.deleteFromGroup();
+                menuController.removeFromGroup();
                 break;
             case (8):
                 menuController.checkContacts();

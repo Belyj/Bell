@@ -8,53 +8,55 @@ import ru.handbook.dao.GroupDAOImpl;
  * Created by operator1 on 14.07.2017.
  */
 public class MenuController {
+    ContactControllerDAOImpl contactControllerDAO = new ContactControllerDAOImpl();
+    GroupControllerDAOImpl groupControllerDAO = new GroupControllerDAOImpl();
     SystemMessages messenger = new SystemMessages();
 
     public void searchContact() {
-            new ContactDAOImpl().search().getContactInfo();
+        contactControllerDAO.search();
     }
 
     public void createContact() {
-        new ContactDAOImpl().create();
+        contactControllerDAO.create();
     }
 
     public void updateContact() {
-        new ContactDAOImpl().update();
+        contactControllerDAO.update();
     }
 
     public void deleteContact() {
-        new ContactDAOImpl().delete();
+        contactControllerDAO.delete();
     }
 
     public void addInGroup() {
-        new ContactDAOImpl().addInGroup();
+        contactControllerDAO.addInGroup();
     }
 
-    public void deleteFromGroup() {
-        new ContactDAOImpl().removeFromGroup();
+    public void removeFromGroup() {
+        contactControllerDAO.removeFromGroup();
     }
 
     public void checkContacts() {
-            new ContactDAOImpl().check();
+            contactControllerDAO.check();
     }
 
     public void searchGroup() {
-            new GroupDAOImpl().search().getGroupInfo();
+            groupControllerDAO.search();
     }
 
     public void createGroup() {
-        new GroupDAOImpl().create();
+        groupControllerDAO.create();
     }
 
     public void checkGroups() {
-        new GroupDAOImpl().check();
+        groupControllerDAO.check();
     }
 
     public void deleteGroup() {
-        new GroupDAOImpl().delete();
+        groupControllerDAO.delete();
     }
 
     public void updateGroup() {
-        new GroupDAOImpl().update();
+        groupControllerDAO.update();
     }
 }
