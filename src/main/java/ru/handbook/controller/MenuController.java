@@ -37,11 +37,11 @@ public class MenuController {
     }
 
     public void checkContacts() {
-            contactControllerDAO.check();
+        contactControllerDAO.check();
     }
 
     public void searchGroup() {
-            groupControllerDAO.search();
+        groupControllerDAO.search();
     }
 
     public void createGroup() {

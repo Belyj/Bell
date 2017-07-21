@@ -1,4 +1,4 @@
-package ru.handbook.core.contactview;
+package ru.handbook.core.contactview.FX;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +11,7 @@ import javafx.stage.Stage;
  */
 public class ViewMain extends Application {
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("View.fxml"));
         primaryStage.setTitle("Contact View");
         primaryStage.setScene(new Scene(root, 300, 300));

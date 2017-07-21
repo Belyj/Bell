@@ -4,6 +4,7 @@ import ru.handbook.dao.GroupDAOImpl;
 
 public class GroupControllerDAOImpl implements ControllerDAO {
     GroupDAOImpl groupDAO = new GroupDAOImpl();
+
     public void search() {
         groupDAO.search().getGroupInfo();
     }

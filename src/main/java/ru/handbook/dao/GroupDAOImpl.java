@@ -10,6 +10,7 @@ import static ru.handbook.core.Main.scanner;
  */
 public class GroupDAOImpl implements ObjectDAO<Group> {
     HandbookDataStorage dataSource = HandbookDataStorage.getInstance();
+
     public void create() {
         messenger.nameRequest("group");
         String groupName = scanner.nextLine();
@@ -59,6 +60,7 @@ public class GroupDAOImpl implements ObjectDAO<Group> {
                             if (dataSource.getContacts().get(j).getContactGroups().get(k).equals(groupName)) {
                                 dataSource.getContacts().get(j).getContactGroups().remove(k);
                                 dataSource.getContacts().get(j).getContactGroups().add(newGroupName);
+                                dataSource.notifyObservers();
                                 return;
                             }
                         }
@@ -83,6 +85,7 @@ public class GroupDAOImpl implements ObjectDAO<Group> {
                             dataSource.getGroups().get(i).getGroupContacts().get(j).getContactGroups().remove(k);
                             dataSource.getGroups().remove(i);
                             messenger.removeSuccess(groupName);
+                            dataSource.notifyObservers();
                             return;
                         }
                     }

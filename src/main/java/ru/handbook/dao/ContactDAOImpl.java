@@ -2,6 +2,7 @@ package ru.handbook.dao;
 
 import ru.handbook.model.Contact;
 import ru.handbook.model.HandbookDataStorage;
+
 import static ru.handbook.core.Main.scanner;
 
 /**
@@ -9,6 +10,7 @@ import static ru.handbook.core.Main.scanner;
  */
 public class ContactDAOImpl implements ObjectDAO<Contact> {
     HandbookDataStorage dataSource = HandbookDataStorage.getInstance();
+
     public void create() {
         messenger.nameRequest("contact");
         String name = scanner.nextLine();
@@ -21,6 +23,7 @@ public class ContactDAOImpl implements ObjectDAO<Contact> {
                 }
             }
             dataSource.getContacts().add(new Contact(name));
+            dataSource.notifyObservers();
             messenger.createSuccess(name);
         } else messenger.emptyName(name);
     }
@@ -31,7 +34,7 @@ public class ContactDAOImpl implements ObjectDAO<Contact> {
         int length = dataSource.getContacts().size();
         for (int i = 0; i < length; i++) {
             if (dataSource.getContacts().get(i).getContactName().equals(name)) {
-                return dataSource.getInstance().getContacts().get(i);
+                return dataSource.getContacts().get(i);
             }
         }
         messenger.nameNonexistent(name);
@@ -53,7 +56,9 @@ public class ContactDAOImpl implements ObjectDAO<Contact> {
                     if (!newName.equals("")) {
                         for (int j = 0; j < length; j++) {
                             if (!dataSource.getContacts().get(j).getContactName().equals(newName)) {
-                                dataSource.getContacts().get(j).setContactName(newName);
+                                dataSource.getContacts().get(i).setContactName(newName);
+                                dataSource.notifyObservers();
+                                return;
                             } else {
                                 messenger.nameIsBusy(newName);
                                 return;
@@ -73,10 +78,11 @@ public class ContactDAOImpl implements ObjectDAO<Contact> {
                 messenger.newDataRequest("mail");
                 quest = scanner.nextLine();
                 dataSource.getContacts().get(i).setMail(quest);
-                for (int j = 0; j < length; j++) {
-                    if (dataSource.getContacts().get(j).getContactName().equals(newName)) {
-                        dataSource.getContacts().get(j).getContactInfo();
-                        return;
+                    for (int j = 0; j < length; j++) {
+                        if (dataSource.getContacts().get(j).getContactName().equals(newName)) {
+                            dataSource.getContacts().get(j).getContactInfo();
+                            dataSource.notifyObservers();
+                            return;
                     }
                 }
             }
@@ -98,6 +104,7 @@ public class ContactDAOImpl implements ObjectDAO<Contact> {
                             dataSource.getGroups().get(j).getGroupContacts().remove(k);
                             dataSource.getContacts().remove(i);
                             messenger.removeSuccess(contactName);
+                            dataSource.notifyObservers();
                             return;
                         }
                     }
@@ -121,6 +128,7 @@ public class ContactDAOImpl implements ObjectDAO<Contact> {
                         dataSource.getGroups().get(j).setGroupContact(dataSource.getContacts().get(i));
                         dataSource.getContacts().get(i).setContactGroups(groupName);
                         messenger.addGroupSuccess(contactName, groupName);
+                        dataSource.notifyObservers();
                         return;
                     }
                 }
@@ -149,6 +157,7 @@ public class ContactDAOImpl implements ObjectDAO<Contact> {
                                 dataSource.getContacts().get(i).getContactGroups().remove(k);
                                 dataSource.getGroups().get(j).removeContact(contactName);
                                 messenger.removeGroupSuccess(contactName, groupName);
+                                dataSource.notifyObservers();
                                 return;
                             }
                         }
@@ -160,7 +169,7 @@ public class ContactDAOImpl implements ObjectDAO<Contact> {
         }
         messenger.nameNonexistent(contactName);
     }
-    
+
     public void check() {
         if (!dataSource.getContacts().isEmpty()) {
             int contactsLength = dataSource.getContacts().size();

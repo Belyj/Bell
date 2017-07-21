@@ -4,6 +4,7 @@ import ru.handbook.dao.ContactDAOImpl;
 
 public class ContactControllerDAOImpl implements ControllerDAO {
     ContactDAOImpl contactDAO = new ContactDAOImpl();
+
     public void search() {
         contactDAO.search().getContactInfo();
     }
