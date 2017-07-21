@@ -9,12 +9,13 @@ import static ru.handbook.core.Main.scanner;
  * Created by asus on 16.07.2017.
  */
 public class GroupDAOImpl implements ObjectDAO<Group> {
+
     HandbookDataStorage dataSource = HandbookDataStorage.getInstance();
 
     public void create() {
         messenger.nameRequest("group");
         String groupName = scanner.nextLine();
-        if (!groupName.equals("")) {
+        if (!groupName.isEmpty()) {
             int groupsLength = dataSource.getGroups().size();
             for (int i = 0; i < groupsLength; i++) {
                 if (dataSource.getGroups().get(i).getGroupName().equals(groupName)) {

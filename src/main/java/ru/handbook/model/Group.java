@@ -38,7 +38,7 @@ public class Group implements Serializable {
     }
 
     public void getGroupInfo() {
-        if (groupContacts !=  null) {
+        if (groupContacts != null) {
             int length = groupContacts.size();
             for (int i = 0; i < length; i++) {
                 System.out.println(groupContacts.get(i).getContactName());

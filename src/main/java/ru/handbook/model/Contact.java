@@ -21,7 +21,7 @@ public class Contact implements Serializable {
 
     public void setContactGroups(String contactGroup) {
         if (contactGroups == null) {
-            contactGroups = new ArrayList() ;
+            contactGroups = new ArrayList();
         }
         contactGroups.add(contactGroup);
     }

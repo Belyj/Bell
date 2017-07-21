@@ -12,7 +12,8 @@ import java.util.List;
 /**
  * Created by operator1 on 14.07.2017.
  */
-public class HandbookDataStorage implements Serializable, Observable {
+public class HandbookDataStorage implements Observable {
+
     private static volatile HandbookDataStorage instance;
     private List<Contact> contacts = new ArrayList();
     private List<Group> groups = new ArrayList();

@@ -1,13 +1,16 @@
 package ru.handbook.serialization;
+
 import ru.handbook.model.HandbookDataStorage;
+
 import java.io.*;
 
 /**
  * Created by asus on 15.07.2017.
  */
 public class Serializer {
+
     public static void serialize() {
-        ObjectOutputStream objectOutputStream  = createOOS();
+        ObjectOutputStream objectOutputStream = createOOS();
         try {
             objectOutputStream.writeObject(HandbookDataStorage.getInstance());
             System.out.println("Serializing is success");
@@ -25,8 +28,8 @@ public class Serializer {
     private static ObjectOutputStream createOOS() {
         try {
 //             if (new File("temp.out").exists()) {
-                System.out.println("Creating ObjectOutputStream...");
-                return new ObjectOutputStream(createFOS());
+            System.out.println("Creating ObjectOutputStream...");
+            return new ObjectOutputStream(createFOS());
 //            }  else System.out.println("File does not exist");
         } catch (IOException e) {
             createFile();
@@ -37,7 +40,7 @@ public class Serializer {
     private static FileOutputStream createFOS() {
         try {
             System.out.println("Creating FileOutputStream...");
-            return  new FileOutputStream("temp.out");
+            return new FileOutputStream("temp.out");
         } catch (FileNotFoundException e) {
             createFile();
         }
