@@ -22,7 +22,7 @@ public class GroupDAOImpl implements ObjectDAO<Group> {
         if (!groupName.isEmpty()) {
             int groupsLength = dataSource.getGroups().size();
             for (int i = 0; i < groupsLength; i++) {
-                if (dataSource.getGroups().get(i).getGroupName().equals(groupName)) {
+                if (dataSource.getGroups().get(i).getName().equals(groupName)) {
                     messenger.nameIsBusy(groupName);
                     return;
                 }
@@ -40,7 +40,7 @@ public class GroupDAOImpl implements ObjectDAO<Group> {
         System.out.println(groupName + ":\n");
         int length = dataSource.getGroups().size();
         for (int i = 0; i < length; i++) {
-            if (dataSource.getGroups().get(i).getGroupName().equals(groupName)) {
+            if (dataSource.getGroups().get(i).getName().equals(groupName)) {
                 return dataSource.getGroups().get(i);
             }
         }
@@ -77,7 +77,7 @@ public class GroupDAOImpl implements ObjectDAO<Group> {
         messenger.nameRequest("group");
         String groupName = scanner.nextLine();
         for (Group group : intermediateGroups) {
-            if (group.getGroupName().equals(groupName)) {
+            if (group.getName().equals(groupName)) {
                 messenger.newNameRequest("group");
                 String newGroupName = scanner.nextLine();
                 dataSource.getGroupByName(groupName).setName(newGroupName);
@@ -101,7 +101,7 @@ public class GroupDAOImpl implements ObjectDAO<Group> {
         messenger.nameRequest("group");
         String groupName = scanner.nextLine();
         for (Group group : intermediateGroups) {
-            if (group.getGroupName().equals(groupName)) {
+            if (group.getName().equals(groupName)) {
                 dataSource.getGroups().remove(group);
                 messenger.removeSuccess(groupName);
                 for (Contact contact : intermediateContacts) {
@@ -121,7 +121,7 @@ public class GroupDAOImpl implements ObjectDAO<Group> {
         int groupsLength = dataSource.getGroups().size();
         if (!dataSource.getGroups().isEmpty()) {
             for (int i = 0; i < groupsLength; i++) {
-                System.out.println(dataSource.getGroups().get(i).getGroupName());
+                System.out.println(dataSource.getGroups().get(i).getName());
             }
         } else messenger.emptyList("Group list");
     }

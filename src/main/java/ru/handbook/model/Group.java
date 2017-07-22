@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by operator1 on 13.07.2017.
  */
-public class Group implements Serializable, Cloneable {
+public class Group implements HandbookObject {
 
     private String groupName;
 
@@ -21,16 +21,16 @@ public class Group implements Serializable, Cloneable {
         this.groupName = name;
     }
 
-    public String getGroupName() {
-        return groupName;
-    }
-
     public List<Contact> getGroupContacts() {
         return groupContacts;
     }
 
     public void setName(String name) {
         this.groupName = name;
+    }
+
+    public String getName() {
+        return groupName;
     }
 
     public void setGroupContact(Contact contact) {

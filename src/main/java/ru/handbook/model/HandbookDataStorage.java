@@ -25,7 +25,7 @@ public class HandbookDataStorage implements Observable {
 
     public Group getGroupByName(String name) {
         for (int i = 0; i < groups.size(); i++) {
-            if (groups.get(i).getGroupName().equals(name)) {
+            if (groups.get(i).getName().equals(name)) {
                 return groups.get(i);
             }
         }
