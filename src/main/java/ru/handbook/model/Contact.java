@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by asus on 11.07.2017.
  */
-public class Contact implements Serializable {
+public class Contact implements HandbookObject {
 
     private String contactName;
     private String telephone;
@@ -19,6 +19,18 @@ public class Contact implements Serializable {
         return contactGroups;
     }
 
+    public void setName(String name) {
+        this.contactName = name;
+    }
+
+    public String getName() {
+        return contactName;
+    }
+
+    public Contact clone() throws CloneNotSupportedException {
+        return (Contact) super.clone();
+    }
+
     public void setContactGroups(String contactGroup) {
         if (contactGroups == null) {
             contactGroups = new ArrayList();
@@ -27,10 +39,6 @@ public class Contact implements Serializable {
     }
 
     public Contact(String name) {
-        this.contactName = name;
-    }
-
-    public void setContactName(String name) {
         this.contactName = name;
     }
 
@@ -47,7 +55,7 @@ public class Contact implements Serializable {
     }
 
     public void getContactInfo() {
-        System.out.println("Name: " + getContactName() +
+        System.out.println("Name: " + getName() +
                 "\ntelehpone: " + getTelephone() +
                 "\nskype: " + getSkype() +
                 "\nmail: " + getMail() + "\n");
@@ -58,10 +66,6 @@ public class Contact implements Serializable {
             }
             System.out.println("----------");
         } else System.out.println("Group list is empty");
-    }
-
-    public String getContactName() {
-        return contactName;
     }
 
     public String getTelephone() {

@@ -23,6 +23,24 @@ public class HandbookDataStorage implements Observable {
     private HandbookDataStorage() {
     }
 
+    public Group getGroupByName(String name) {
+        for (int i = 0; i < groups.size(); i++) {
+            if (groups.get(i).getGroupName().equals(name)) {
+                return groups.get(i);
+            }
+        }
+        return null;
+    }
+
+    public Contact getContactByName(String name) {
+        for (int i = 0; i < groups.size(); i++) {
+            if (contacts.get(i).getName().equals(name)) {
+                return contacts.get(i);
+            }
+        }
+        return null;
+    }
+
     public static HandbookDataStorage getInstance() {
         if (instance == null) {
             synchronized (HandbookDataStorage.class) {

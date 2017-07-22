@@ -24,7 +24,7 @@ public class ViewContactSwing extends JFrame implements Observer {
 
     public void handleEvent(List<Contact> contacts) {
         for (Contact contact : contacts) {
-            this.textArea.setText(this.textArea.getText() + "\n" + contact.getContactName());
+            this.textArea.setText(this.textArea.getText() + "\n" + contact.getName());
         }
     }
 }

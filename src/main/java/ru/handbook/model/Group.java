@@ -7,11 +7,15 @@ import java.util.List;
 /**
  * Created by operator1 on 13.07.2017.
  */
-public class Group implements Serializable {
+public class Group implements Serializable, Cloneable {
 
     private String groupName;
 
     private List<Contact> groupContacts;
+
+    public Group clone() throws CloneNotSupportedException {
+        return (Group) super.clone();
+    }
 
     public Group(String name) {
         this.groupName = name;
@@ -41,7 +45,7 @@ public class Group implements Serializable {
         if (groupContacts != null) {
             int length = groupContacts.size();
             for (int i = 0; i < length; i++) {
-                System.out.println(groupContacts.get(i).getContactName());
+                System.out.println(groupContacts.get(i).getName());
                 return;
             }
         }

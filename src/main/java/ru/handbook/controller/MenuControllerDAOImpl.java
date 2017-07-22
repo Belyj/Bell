@@ -25,11 +25,19 @@ public class MenuControllerDAOImpl implements GroupControllerDAO, ContactControl
     }
 
     public void addInGroup() {
-        contactDAO.addInGroup();
+        try {
+            contactDAO.addInGroup();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void removeFromGroup() {
-        contactDAO.removeFromGroup();
+        try {
+            contactDAO.removeFromGroup();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void checkContacts() {
