@@ -3,6 +3,8 @@ package ru.handbook.dao;
 import ru.handbook.model.Contact;
 import ru.handbook.model.Group;
 import ru.handbook.model.HandbookDataStorage;
+import ru.handbook.model.HandbookObject;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,24 +18,26 @@ public class ContactDAOImpl implements ObjectDAO<Contact> {
 
     HandbookDataStorage dataSource = HandbookDataStorage.getInstance();
 
-    private void searchingByName(List<Serializable> searcheable) {
-        for (Serializable serializable : searcheable) {
-
+    private boolean isNameExist(List<HandbookObject> objects,String name) {
+        for (HandbookObject object : objects) {
+            if (object.getName().equals(name)) {
+                return true;
+            }
         }
+        return false;
     }
 
     public void create() {
         messenger.nameRequest("contact");
         String name = scanner.nextLine();
         if (!name.isEmpty()) {
-            for (Contact contact : dataSource.getContacts()) {
-                if (contact.getName().equals(name)) {
+            //for (Contact contact : dataSource.getContacts()) {
+                if (isNameExist(dataSource.getContacts(), name)) {
                     messenger.nameIsBusy(name);
                     return;
                 }
-            }
+            //}
             dataSource.getContacts().add(new Contact(name));
-            dataSource.notifyObservers();
             messenger.createSuccess(name);
         } else messenger.emptyName(name);
     }
@@ -50,10 +54,13 @@ public class ContactDAOImpl implements ObjectDAO<Contact> {
         return new Contact("");
     }
 
-    public void update() {
+    public void update() throws CloneNotSupportedException {
+        List<Contact> intermediateContacts = getCloneContact(dataSource.getContacts());
+        List<Contact> intermediateContacts1 = getCloneContact(dataSource.getContacts());
+        List<Group> intermediateGroups = getCloneGroup(dataSource.getGroups());
         messenger.nameRequest("contact");
         String name = scanner.nextLine();
-        for (Contact contact : dataSource.getContacts()) {
+        for (Contact contact : intermediateContacts) {
             if (contact.getName().equals(name)) {
                 System.out.println("Would you update name? y/n");
                 String yn = scanner.nextLine();
@@ -62,10 +69,26 @@ public class ContactDAOImpl implements ObjectDAO<Contact> {
                     messenger.newNameRequest("contact");
                     newName = scanner.nextLine();
                     if (!newName.isEmpty()) {
-                        for (Contact contact1 : dataSource.getContacts()) {
+                        for (Contact contact1 : intermediateContacts1) {
                             if (!contact1.getName().equals(newName)) {
-                                contact1.setName(newName);
-                                dataSource.notifyObservers();
+                                for (Group group : intermediateGroups) {
+                                    for (int i = 0; i < group.getGroupContacts().size(); i++) {
+                                        if (group != null) {
+                                            if (group.getGroupContacts().get(i).getName().equals(name)) {
+                                                dataSource.getGroupByName(group.getGroupName()).getGroupContacts().remove(dataSource.getContactByName(name));
+                                                dataSource.getContactByName(name).setName(newName);
+                                                for (int j = 0; j < dataSource.getGroupByName(group.getGroupName()).getGroupContacts().size(); j++) {
+                                                    if (dataSource.getGroupByName(group.getGroupName()).getGroupContacts().get(j).getName().equals(name)) {
+                                                        dataSource.getGroupByName(group.getGroupName()).getGroupContacts().get(j).setName(newName);
+                                                    }
+                                                }
+                                                System.out.println("Changes was applyed");
+                                                return;
+                                            }
+                                        }
+                                    }
+                                }
+                                dataSource.getContactByName(name).setName(newName);
                                 return;
                             } else {
                                 messenger.nameIsBusy(newName);
@@ -89,7 +112,6 @@ public class ContactDAOImpl implements ObjectDAO<Contact> {
                 for (Contact contact1 : dataSource.getContacts()) {
                     if (contact1.getName().equals(newName)) {
                         contact1.getContactInfo();
-                        dataSource.notifyObservers();
                         return;
                     }
                 }
@@ -98,17 +120,18 @@ public class ContactDAOImpl implements ObjectDAO<Contact> {
         messenger.nameNonexistent(name);
     }
 
-    public void delete() {
+    public void delete() throws CloneNotSupportedException {
+        List<Contact> intermediateContacts = getCloneContact(dataSource.getContacts());
+        List<Group> intermediateGroups = getCloneGroup(dataSource.getGroups());
         messenger.nameRequest("contact");
         String contactName = scanner.nextLine();
-        for (Contact contact : dataSource.getContacts()) {
+        for (Contact contact : intermediateContacts) {
             if (contact.getName().equals(contactName)) {
-                for (Group group : dataSource.getGroups()) {
+                dataSource.getContacts().remove(contact);
+                for (Group group : intermediateGroups) {
                     for (Contact groupContact : group.getGroupContacts()) {
                         if (groupContact.getName().equals(contactName)) {
-                            dataSource.getContacts().remove(contact);
-                            group.getGroupContacts().remove(groupContact);
-                            dataSource.notifyObservers();
+                            dataSource.getGroupByName(group.getGroupName()).getGroupContacts().remove(groupContact);
                             return;
                         }
                     }
@@ -117,7 +140,8 @@ public class ContactDAOImpl implements ObjectDAO<Contact> {
         }
         messenger.nameNonexistent(contactName);
     }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public List<Contact> getCloneContact(List<Contact> incomingContacts) throws CloneNotSupportedException {
         List<Contact> contacts = new ArrayList();
         for (int i = 0; i < incomingContacts.size(); i++) {
@@ -137,7 +161,8 @@ public class ContactDAOImpl implements ObjectDAO<Contact> {
         }
         return groups;
     }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void addInGroup() throws CloneNotSupportedException {
         List<Contact> intermediateContacts = getCloneContact(dataSource.getContacts());
         List<Group> intermediateGroups = getCloneGroup(dataSource.getGroups());

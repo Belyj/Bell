@@ -2,6 +2,7 @@ package ru.handbook.core;
 
 import ru.handbook.controller.MenuControllerDAOImpl;
 import ru.handbook.exceptions.NotCorrectCommandException;
+import ru.handbook.model.HandbookDataStorage;
 
 import static ru.handbook.core.Main.flag;
 import static ru.handbook.core.Main.scanner;
@@ -16,6 +17,7 @@ public class Menu {
     public Menu() {
         int command;
         while (flag) {
+            HandbookDataStorage.getInstance().notifyObservers();
             System.out.println("Entery #comand");
             System.out.println("0: searchContact\n " +
                     "1: createContact\n " +

@@ -17,11 +17,19 @@ public class MenuControllerDAOImpl implements GroupControllerDAO, ContactControl
     }
 
     public void updateContact() {
-        contactDAO.update();
+        try {
+            contactDAO.update();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void deleteContact() {
-        contactDAO.delete();
+        try {
+            contactDAO.delete();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addInGroup() {
@@ -53,13 +61,20 @@ public class MenuControllerDAOImpl implements GroupControllerDAO, ContactControl
     }
 
     public void updateGroup() {
-        groupDAO.update();
+        try {
+            groupDAO.update();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void deleteGroup() {
-        groupDAO.delete();
+        try {
+            groupDAO.delete();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
     }
-
     public void checkGroups() {
         groupDAO.check();
     }

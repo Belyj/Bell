@@ -24,12 +24,12 @@ public interface ObjectDAO<T> {
     /**
      * <p>Updating fields of object</p>
      */
-    void update();
+    void update() throws CloneNotSupportedException;
 
     /**
      * <p>Deleting object</p>
      */
-    void delete();
+    void delete() throws CloneNotSupportedException;
 
     /**
      * <p>Looking for objects same category</p>

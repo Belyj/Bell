@@ -1,7 +1,11 @@
 package ru.handbook.dao;
 
+import ru.handbook.model.Contact;
 import ru.handbook.model.Group;
 import ru.handbook.model.HandbookDataStorage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static ru.handbook.core.Main.scanner;
 
@@ -44,26 +48,45 @@ public class GroupDAOImpl implements ObjectDAO<Group> {
         return new Group("");
     }
 
-    public void update() {
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public List<Contact> getCloneContact(List<Contact> incomingContacts) throws CloneNotSupportedException {
+        List<Contact> contacts = new ArrayList();
+        for (int i = 0; i < incomingContacts.size(); i++) {
+            Contact contact;
+            contact = incomingContacts.get(i).clone();
+            contacts.add(contact);
+        }
+        return contacts;
+    }
+
+    public List<Group> getCloneGroup(List<Group> incomingGroup) throws CloneNotSupportedException {
+        List<Group> groups = new ArrayList();
+        for (int i = 0; i < incomingGroup.size(); i++) {
+            Group group;
+            group = dataSource.getGroups().get(i).clone();
+            groups.add(group);
+        }
+        return groups;
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void update() throws CloneNotSupportedException {
+        List<Contact> intermediateContacts = getCloneContact(dataSource.getContacts());
+        List<Group> intermediateGroups = getCloneGroup(dataSource.getGroups());
         messenger.nameRequest("group");
         String groupName = scanner.nextLine();
-        int groupLength = dataSource.getGroups().size();
-        for (int i = 0; i < groupLength; i++) {
-            if (dataSource.getGroups().get(i).getGroupName().equals(groupName)) {
-                messenger.newNameRequest("contact");
+        for (Group group : intermediateGroups) {
+            if (group.getGroupName().equals(groupName)) {
+                messenger.newNameRequest("group");
                 String newGroupName = scanner.nextLine();
-                dataSource.getGroups().get(i).setName(newGroupName);
-                int contactsLength = dataSource.getContacts().size();
-                for (int j = 0; j < contactsLength; j++) {
-                    if (dataSource.getContacts().get(j).getContactGroups() != null) {
-                        int contactGroupsLength = dataSource.getContacts().get(j).getContactGroups().size();
-                        for (int k = 0; k < contactGroupsLength; k++) {
-                            if (dataSource.getContacts().get(j).getContactGroups().get(k).equals(groupName)) {
-                                dataSource.getContacts().get(j).getContactGroups().remove(k);
-                                dataSource.getContacts().get(j).getContactGroups().add(newGroupName);
-                                dataSource.notifyObservers();
-                                return;
-                            }
+                dataSource.getGroupByName(groupName).setName(newGroupName);
+                for (Contact contact : intermediateContacts) {
+                    for (int i = 0; i < contact.getContactGroups().size(); i++) {
+                        if (contact.getContactGroups().get(i).equals(groupName)) {
+                            contact.getContactGroups().remove(i);
+                            contact.getContactGroups().add(newGroupName);
+                            return;
                         }
                     }
                 }
@@ -72,21 +95,19 @@ public class GroupDAOImpl implements ObjectDAO<Group> {
         messenger.nameNonexistent(groupName);
     }
 
-    public void delete() {
+    public void delete() throws CloneNotSupportedException {
+        List<Contact> intermediateContacts = getCloneContact(dataSource.getContacts());
+        List<Group> intermediateGroups = getCloneGroup(dataSource.getGroups());
         messenger.nameRequest("group");
         String groupName = scanner.nextLine();
-        int groupLength = dataSource.getGroups().size();
-        for (int i = 0; i < groupLength; i++) {
-            if (dataSource.getGroups().get(i).getGroupName().equals(groupName)) {
-                int groupContactsLength = dataSource.getGroups().get(i).getGroupContacts().size();
-                for (int j = 0; j < groupContactsLength; j++) {
-                    int contactGroupsLength = dataSource.getGroups().get(i).getGroupContacts().get(j).getContactGroups().size();
-                    for (int k = 0; k < contactGroupsLength; k++) {
-                        if (dataSource.getGroups().get(i).getGroupContacts().get(j).getContactGroups().get(k).equals(groupName)) {
-                            dataSource.getGroups().get(i).getGroupContacts().get(j).getContactGroups().remove(k);
-                            dataSource.getGroups().remove(i);
-                            messenger.removeSuccess(groupName);
-                            dataSource.notifyObservers();
+        for (Group group : intermediateGroups) {
+            if (group.getGroupName().equals(groupName)) {
+                dataSource.getGroups().remove(group);
+                messenger.removeSuccess(groupName);
+                for (Contact contact : intermediateContacts) {
+                    for (int i = 0; i < contact.getContactGroups().size(); i++) {
+                        if (contact.getContactGroups().get(i).equals(groupName)) {
+                            contact.getContactGroups().remove(i);
                             return;
                         }
                     }

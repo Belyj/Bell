@@ -8,23 +8,24 @@ import java.util.List;
 
 public class ViewContactSwing extends JFrame implements Observer {
 
-    private JTextArea textArea;
+    private JTextArea view;
 
     public ViewContactSwing() {
         setTitle("Contact view");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setBounds(400, 100, 500, 500);
-        textArea = new JTextArea(2, 5);
-        textArea.setEditable(false);
-        textArea.setLineWrap(true);
-        this.add(textArea);
+        view = new JTextArea();
+        view.setEditable(false);
+        view.setLineWrap(true);
+        this.add(view);
         this.setVisible(true);
         HandbookDataStorage.getInstance().addObserver(this);
     }
 
     public void handleEvent(List<Contact> contacts) {
+        view.repaint();
         for (Contact contact : contacts) {
-            this.textArea.setText(this.textArea.getText() + "\n" + contact.getName());
+            this.view.setText(this.view.getText() + "\n" + contact.getName());
         }
     }
 }

@@ -9,4 +9,6 @@ public interface HandbookObject extends Serializable, Cloneable {
     void setName(String name);
 
     String getName();
+
+    HandbookObject clone() throws CloneNotSupportedException;
 }
