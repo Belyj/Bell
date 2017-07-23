@@ -1,4 +1,4 @@
-package ru.handbook.exceptions;
+package ru.handbook.helper.exceptions;
 
 /**
  * Created by operator1 on 13.07.2017.

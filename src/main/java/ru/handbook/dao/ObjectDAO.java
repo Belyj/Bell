@@ -10,29 +10,29 @@ public interface ObjectDAO<T> {
     SystemMessages messenger = new SystemMessages();
 
     /**
-     * <p>Creating object</p>
+     * <p>Создание сущности</p>
      */
     void create();
 
     /**
-     * <p>Searching object</p>
+     * <p>Поиск сущности</p>
      *
-     * @return T
+     * @return T возвращает ссылку на искомую сущность
      */
     T search();
 
     /**
-     * <p>Updating fields of object</p>
+     * <p>Обновить поля сущности, используется клонирование при поиске</p>
      */
     void update() throws CloneNotSupportedException;
 
     /**
-     * <p>Deleting object</p>
+     * <p>Удаление сущности, используется клонирование при поиске</p>
      */
     void delete() throws CloneNotSupportedException;
 
     /**
-     * <p>Looking for objects same category</p>
+     * <p>Просмотр всех сущностей данного типа</p>
      */
     void check();
 }

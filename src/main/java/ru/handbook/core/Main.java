@@ -1,12 +1,12 @@
 package ru.handbook.core;
 
-import ru.handbook.core.contactview.ViewContactSwing;
-import ru.handbook.exceptions.*;
+import ru.handbook.view.contacts.ViewContactSwing;
+import ru.handbook.view.menu.Menu;
 
 import java.util.Scanner;
 
-import static ru.handbook.serialization.Deserializer.deSerialize;
-import static ru.handbook.serialization.Serializer.*;
+import static ru.handbook.helper.serialization.Deserializer.deSerialize;
+import static ru.handbook.helper.serialization.Serializer.*;
 
 /**
  * Created by asus on 11.07.2017.

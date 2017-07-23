@@ -1,4 +1,4 @@
-package ru.handbook.core.contactview;
+package ru.handbook.view.contacts;
 
 import ru.handbook.model.Contact;
 

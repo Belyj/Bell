@@ -1,7 +1,7 @@
-package ru.handbook.core;
+package ru.handbook.view.menu;
 
 import ru.handbook.controller.MenuControllerDAOImpl;
-import ru.handbook.exceptions.NotCorrectCommandException;
+import ru.handbook.helper.exceptions.NotCorrectCommandException;
 import ru.handbook.model.HandbookDataStorage;
 
 import static ru.handbook.core.Main.flag;

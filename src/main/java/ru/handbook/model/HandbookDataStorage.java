@@ -1,11 +1,10 @@
 package ru.handbook.model;
 
-import ru.handbook.core.contactview.Observer;
-import ru.handbook.serialization.Deserializer;
+import ru.handbook.view.contacts.Observer;
+import ru.handbook.helper.serialization.Deserializer;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

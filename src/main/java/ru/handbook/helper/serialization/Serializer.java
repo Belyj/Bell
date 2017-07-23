@@ -1,4 +1,4 @@
-package ru.handbook.serialization;
+package ru.handbook.helper.serialization;
 
 import ru.handbook.model.HandbookDataStorage;
 
