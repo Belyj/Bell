@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * Created by asus on 11.07.2017.
  */
+
 public class Contact implements Serializable {
 
     private String contactName;
