@@ -14,7 +14,7 @@ public class Menu {
 
     MenuControllerDAOImpl menuController = new MenuControllerDAOImpl();
 
-    public Menu() {
+    public Menu() { 
         int command;
         while (flag) {
             HandbookDataStorage.getInstance().notifyObservers();
