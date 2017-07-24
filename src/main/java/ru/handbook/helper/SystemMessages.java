@@ -1,4 +1,4 @@
-package ru.handbook.core;
+package ru.handbook.helper;
 
 /**
  * Created by operator1 on 14.07.2017.

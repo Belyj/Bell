@@ -1,6 +1,6 @@
 package ru.handbook.dao;
 
-import ru.handbook.core.SystemMessages;
+import ru.handbook.helper.SystemMessages;
 
 /**
  * Created by asus on 16.07.2017.

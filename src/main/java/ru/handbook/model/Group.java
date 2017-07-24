@@ -7,15 +7,11 @@ import java.util.List;
 /**
  * Created by operator1 on 13.07.2017.
  */
-public class Group implements HandbookObject {
+public class Group implements Serializable {
 
     private String groupName;
 
     private List<Contact> groupContacts;
-
-    public Group clone() throws CloneNotSupportedException {
-        return (Group) super.clone();
-    }
 
     public Group(String name) {
         this.groupName = name;

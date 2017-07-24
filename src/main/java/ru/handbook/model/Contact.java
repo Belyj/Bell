@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by asus on 11.07.2017.
  */
-public class Contact implements HandbookObject {
+public class Contact implements Serializable {
 
     private String contactName;
     private String telephone;
@@ -27,10 +27,6 @@ public class Contact implements HandbookObject {
         return contactName;
     }
 
-    public Contact clone() throws CloneNotSupportedException {
-        return (Contact) super.clone();
-    }
-
     public void setContactGroups(String contactGroup) {
         if (contactGroups == null) {
             contactGroups = new ArrayList();
@@ -43,18 +39,22 @@ public class Contact implements HandbookObject {
     }
 
     public void setTelephone(String telephone) {
+
         this.telephone = telephone;
     }
 
     public void setSkype(String skype) {
+
         this.skype = skype;
     }
 
     public void setMail(String mail) {
+
         this.mail = mail;
     }
 
     public void getContactInfo() {
+
         System.out.println("Name: " + getName() +
                 "\ntelehpone: " + getTelephone() +
                 "\nskype: " + getSkype() +
@@ -69,14 +69,17 @@ public class Contact implements HandbookObject {
     }
 
     public String getTelephone() {
+
         return telephone;
     }
 
     public String getSkype() {
+
         return skype;
     }
 
     public String getMail() {
+
         return mail;
     }
 }

@@ -5,6 +5,7 @@ import ru.handbook.helper.serialization.Deserializer;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,8 @@ public class HandbookDataStorage implements Observable {
     }
 
     public Contact getContactByName(String name) {
-        for (int i = 0; i < groups.size(); i++) {
+
+        for (int i = 0; i < contacts.size(); i++) {
             if (contacts.get(i).getName().equals(name)) {
                 return contacts.get(i);
             }
@@ -42,6 +44,7 @@ public class HandbookDataStorage implements Observable {
     }
 
     public static HandbookDataStorage getInstance() {
+
         if (instance == null) {
             synchronized (HandbookDataStorage.class) {
                 if (instance == null) {
@@ -62,22 +65,27 @@ public class HandbookDataStorage implements Observable {
     }
 
     public List<Contact> getContacts() {
+
         return contacts;
     }
 
     public List<Group> getGroups() {
+
         return groups;
     }
 
     public void addObserver(Observer observer) {
+
         observers.add(observer);
     }
 
     public void removeObserver(Observer observer) {
+
         observers.remove(observer);
     }
 
     public void notifyObservers() {
+
         for (Observer observer : observers) {
             observer.handleEvent(contacts);
         }
