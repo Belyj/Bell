@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class HandbookDataStorage implements Observable {
 
+    private static final long serialVersionUID = -8322155900638738350L;
     private static volatile HandbookDataStorage instance;
     private List<Contact> contacts = new ArrayList();
     private List<Group> groups = new ArrayList();
