@@ -1,4 +1,4 @@
-package ru.handbook.model;
+package ru.handbook.model.product;
 
 import java.io.Serializable;
 /*

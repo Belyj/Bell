@@ -1,6 +1,6 @@
 package ru.handbook.dao;
 
-import ru.handbook.core.SystemMessages;
+import ru.handbook.helper.SystemMessages;
 
 /**
  * Created by asus on 16.07.2017.
@@ -9,10 +9,7 @@ public interface ObjectDAO<T> {
 
     SystemMessages messenger = new SystemMessages();
 
-    /**
-     * <p>Создание сущности</p>
-     */
-    void create();
+
 
     /**
      * <p>Поиск сущности</p>

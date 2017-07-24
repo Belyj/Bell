@@ -1,8 +1,10 @@
 package ru.handbook.dao;
 
-import ru.handbook.model.Contact;
-import ru.handbook.model.Group;
+import ru.handbook.model.product.Contact;
+import ru.handbook.model.factory.GroupFactory;
+import ru.handbook.model.product.Group;
 import ru.handbook.model.HandbookDataStorage;
+import ru.handbook.model.product.HandbookObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,22 +18,22 @@ public class GroupDAOImpl implements ObjectDAO<Group> {
 
     HandbookDataStorage dataSource = HandbookDataStorage.getInstance();
 
+    GroupFactory groupFactory = new GroupFactory();
+
+    public boolean isGroupNameExist(List<Group> objects, String name) {
+        for (HandbookObject object : objects) {
+            if (object.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void create() {
         messenger.nameRequest("group");
-        String groupName = scanner.nextLine();
-        if (!groupName.isEmpty()) {
-            int groupsLength = dataSource.getGroups().size();
-            for (int i = 0; i < groupsLength; i++) {
-                if (dataSource.getGroups().get(i).getName().equals(groupName)) {
-                    messenger.nameIsBusy(groupName);
-                    return;
-                }
-            }
-            dataSource.getGroups().add(new Group(groupName));
-            messenger.createSuccess(groupName);
-        } else {
-            messenger.emptyName(groupName);
-        }
+        String name = scanner.nextLine();
+        dataSource.getGroups().add(groupFactory.create(name));
+        messenger.createSuccess(name);
     }
 
     public Group search() {

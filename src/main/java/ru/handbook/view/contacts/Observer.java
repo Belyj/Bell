@@ -1,6 +1,6 @@
 package ru.handbook.view.contacts;
 
-import ru.handbook.model.Contact;
+import ru.handbook.model.product.Contact;
 
 import java.util.List;
 

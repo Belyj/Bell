@@ -1,5 +1,7 @@
 package ru.handbook.model;
 
+import ru.handbook.model.product.Contact;
+import ru.handbook.model.product.Group;
 import ru.handbook.view.contacts.Observer;
 import ru.handbook.helper.serialization.Deserializer;
 

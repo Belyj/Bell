@@ -1,6 +1,6 @@
 package ru.handbook.view.contacts;
 
-import ru.handbook.model.Contact;
+import ru.handbook.model.product.Contact;
 import ru.handbook.model.HandbookDataStorage;
 
 import javax.swing.*;

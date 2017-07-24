@@ -1,6 +1,5 @@
-package ru.handbook.model;
+package ru.handbook.model.product;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
